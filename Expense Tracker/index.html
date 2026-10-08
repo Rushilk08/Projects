@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pocketbook – Personal Finance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="logo"></span>Pocketbook</div>
+  <input type="month" id="month" aria-label="Select month">
+</header>
+
+<main class="grid">
+  <section class="hero" aria-live="polite">
+    <p class="muted">Left to spend this month</p>
+    <h1 id="left">$0</h1>
+    <div class="meter" id="meter"></div>
+    <p class="muted" id="heroNote"></p>
+    <div class="stats">
+      <div><span>Income</span><b id="sIn" class="pos">$0</b></div>
+      <div><span>Spent</span><b id="sOut">$0</b></div>
+      <div><span>Saved</span><b id="sRate">0%</b></div>
+    </div>
+  </section>
+
+  <section class="card add">
+    <h2>Add transaction</h2>
+    <form id="form" autocomplete="off">
+      <div class="seg" role="radiogroup" aria-label="Type">
+        <label><input type="radio" name="type" value="expense" checked><span>Expense</span></label>
+        <label><input type="radio" name="type" value="income"><span>Income</span></label>
+      </div>
+      <label>Amount<input name="amount" type="number" min="0.01" step="0.01" placeholder="0.00" required></label>
+      <label>Category<select name="category" id="cat"></select></label>
+      <label>Date<input name="date" type="date" required></label>
+      <label>Note<input name="note" maxlength="40" placeholder="Optional"></label>
+      <button class="btn" type="submit">Add transaction</button>
+    </form>
+  </section>
+
+  <section class="card charts">
+    <h2>Where it went</h2>
+    <div class="donutwrap">
+      <svg viewBox="0 0 42 42" class="donut" id="donut" role="img" aria-label="Spending by category"></svg>
+      <ul class="legend" id="legend"></ul>
+    </div>
+    <h2>Last 6 months</h2>
+    <div class="bars" id="bars"></div>
+  </section>
+
+  <section class="card budgets">
+    <h2>Budgets</h2>
+    <div id="budgetList"></div>
+  </section>
+
+  <section class="card txs">
+    <div class="row"><h2>Transactions</h2><button class="link" id="csv">Export CSV</button></div>
+    <ul id="txList"></ul>
+  </section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
