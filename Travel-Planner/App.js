@@ -101,7 +101,7 @@
       name: 'Autumn in Kyoto and Osaka',
       start,
       end: addDays(start, 6),
-      currency: 'USD',
+      currency: 'INR',
       budget: 2800,
       destinations: [kyoto, osaka, nara],
       activities: [
@@ -130,7 +130,7 @@
       name: String(t.name || 'Untitled trip'),
       start: /^\d{4}-\d{2}-\d{2}$/.test(t.start) ? t.start : todayISO(),
       end: /^\d{4}-\d{2}-\d{2}$/.test(t.end) ? t.end : todayISO(),
-      currency: CURRENCIES.includes(t.currency) ? t.currency : 'USD',
+      currency: CURRENCIES.includes(t.currency) ? t.currency : 'INR',
       budget: Math.max(0, Number(t.budget) || 0),
       destinations: Array.isArray(t.destinations) ? t.destinations.map((d) => ({ notes: '', country: '', arrive: '', depart: '', status: 'Dreaming', ...d })) : [],
       activities: Array.isArray(t.activities) ? t.activities.map((a) => ({ time: '', notes: '', destId: '', cost: 0, category: 'Activities', done: false, ...a, cost: Number(a.cost) || 0 })) : [],
@@ -143,7 +143,11 @@
       const raw = localStorage.getItem(STORE_KEY);
       if (raw) {
         const parsed = JSON.parse(raw);
-        if (parsed && Array.isArray(parsed.trips)) return parsed;
+        if (parsed && Array.isArray(parsed.trips)) {
+    parsed.trips.forEach(t => t.currency = 'INR');
+    localStorage.setItem(STORE_KEY, JSON.stringify(parsed));
+    return parsed;
+        }
       }
     } catch { /* fall through to seed data */ }
     return seed();
@@ -609,7 +613,7 @@
     openForm({
       title: existing ? 'Edit trip' : 'New trip',
       submitLabel: existing ? 'Save changes' : 'Create trip',
-      values: existing || { start: todayISO(), end: addDays(todayISO(), 6), currency: 'USD', budget: '' },
+      values: existing || { start: todayISO(), end: addDays(todayISO(), 6), currency: 'INR', budget: '' },
       fields: [
         { name: 'name', label: 'Trip name', required: true, full: true, placeholder: 'Autumn in Kyoto', autofocus: true },
         { name: 'start', label: 'Start date', type: 'date', required: true },
