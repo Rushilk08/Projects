@@ -6,8 +6,8 @@
   };
   const EXP = Object.keys(CATS).filter(c => c !== 'Salary');
   const $ = id => document.getElementById(id);
-  const money = n => (n < 0 ? '-' : '') + '$' + Math.abs(n).toLocaleString('en-US', {maximumFractionDigits: 0});
-  const money2 = n => '$' + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  const money = n => (n < 0 ? '-' : '') + '₹' + Math.abs(n).toLocaleString('en-IN', {maximumFractionDigits: 0});
+  const money2 = n => '₹' + n.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
   const esc = s => s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const ym = d => d.slice(0, 7);
   const today = new Date().toISOString().slice(0, 10);
